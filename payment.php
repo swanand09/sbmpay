@@ -8,8 +8,8 @@ if (!$cookie->isLogged())
     Tools::redirect('authentication.php?back=order.php');
 	
 $sbmpay = new sbmpay();
-echo $sbmpay->execPayment($cart);
-
+echo $sbmpay->execPayment($context);
+//p($context->cart->getOrderTotal(true, Cart::BOTH));
 include_once(dirname(__FILE__).'/../../footer.php');
 
 ?>

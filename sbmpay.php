@@ -1,5 +1,5 @@
 <?php
-
+include(dirname(__FILE__).'/gateway/PayPlugin.php');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -53,14 +53,26 @@ class sbmpay extends PaymentModule
 	 * It will check if the submit button on the form has been pressed and submit the card details to the database 
 	 */
 	
-	public function execPayment($cart)
+	public function execPayment($context)
 	{
 		if (!$this->active)
 			return ;
    			
 		global $cookie, $smarty;
-
+                
+                $Pay = new PayPlugin();
+                
+                $ordernumber = $context->cart->id;
+              
+                $response_reg = $Pay->registerRequest(array(
+                    "orderNumber" => $ordernumber,
+                    "amount" => $context->cart->getOrderTotal(true, Cart::BOTH),
+                    "currency" => $context->currency->iso_code_num,
+                    "returnUrl" => "returl"
+                ));
+                
 		$smarty->assign(array(
+                        'orderId' => $response_reg["orderId"],
 			'this_path' => $this->_path,
 			'this_path_ssl' => (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://').htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8').__PS_BASE_URI__.'modules/'.$this->name.'/'
 		));
