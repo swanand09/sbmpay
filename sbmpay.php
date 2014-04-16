@@ -4,7 +4,7 @@ include(dirname(__FILE__).'/gateway/PayPlugin.php');
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-class sbmpay extends PaymentModule
+class Sbmpay extends PaymentModule
 {
 	
 	private $_html = '';
@@ -60,11 +60,11 @@ class sbmpay extends PaymentModule
    			
 		global $cookie, $smarty;
                 
-                $Pay = new PayPlugin();
+                $pay = new PayPlugin(dirname(__FILE__).'/gateway/config.properties');
                 
                 $ordernumber = $context->cart->id;
-              
-                $response_reg = $Pay->registerRequest(array(
+                
+                $response_reg = $pay->registerRequest( array(
                     "orderNumber" => $ordernumber,
                     "amount" => $context->cart->getOrderTotal(true, Cart::BOTH),
                     "currency" => $context->currency->iso_code_num,
