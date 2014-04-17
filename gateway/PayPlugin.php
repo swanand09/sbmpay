@@ -84,7 +84,7 @@ class PayPlugin
 	{
 		$this->Logging("Connecting to ".$this->config["ipay.api.url"].$do);
 		
-		require_once 'HTTP/Request2.php';		
+		require_once dirname(__FILE__).'/HTTP/Request2.php';		
 		$request = new HTTP_Request2($this->config["ipay.api.url"].$do, HTTP_Request2::METHOD_POST);
 		// Checking SSL is switched off
 		$request->setConfig(array(
@@ -99,6 +99,9 @@ class PayPlugin
 		$this->Logging("Sending request: ".$this->ArrayToPost($request_full));
 		try {
 			$response = $request->send();
+                       echo "<pre>";
+                       print_r($response);
+                       echo "</pre>";exit;
 			if (200 != $response->getStatus()) {
 				throw new BadHttpResponseCodeException("Unexpected HTTP status: " . $response->getStatus() . " " . $response->getReasonPhrase());
 			}			

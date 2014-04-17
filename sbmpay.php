@@ -63,12 +63,12 @@ class Sbmpay extends PaymentModule
                 $pay = new PayPlugin(dirname(__FILE__).'/gateway/config.properties');
                 
                 $ordernumber = $context->cart->id;
-                
+                               
                 $response_reg = $pay->registerRequest( array(
-                    "orderNumber" => $ordernumber,
+                    "orderId" =>  $ordernumber,
                     "amount" => $context->cart->getOrderTotal(true, Cart::BOTH),
                     "currency" => $context->currency->iso_code_num,
-                    "returnUrl" => "returl"
+                    "returnUrl" => $context->smarty->tpl_vars['base_dir']->value."modules/sbmpay/payment.php"
                 ));
                 
 		$smarty->assign(array(

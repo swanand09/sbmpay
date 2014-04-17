@@ -42,10 +42,10 @@
  */
 
 /** Base class for HTTP_Request2 adapters */
-require_once 'HTTP/Request2/Adapter.php';
+require_once dirname(__FILE__).'/../Adapter.php';
 
 /** Socket wrapper class */
-require_once 'HTTP/Request2/SocketWrapper.php';
+require_once dirname(__FILE__).'/../SocketWrapper.php';
 
 /**
  * Socket-based adapter for HTTP_Request2

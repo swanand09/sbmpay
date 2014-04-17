@@ -44,12 +44,12 @@
 /**
  * A class representing an URL as per RFC 3986.
  */
-require_once 'Net/URL2.php';
+require_once dirname(__FILE__).'/../Net/URL2.php';
 
 /**
  * Exception class for HTTP_Request2 package
  */
-require_once 'HTTP/Request2/Exception.php';
+require_once dirname(__FILE__).'/Request2/Exception.php';
 
 /**
  * Class representing a HTTP request message
@@ -852,7 +852,10 @@ class HTTP_Request2 implements SplSubject
                 if (!class_exists($adapter, false)
                     && preg_match('/^HTTP_Request2_Adapter_([a-zA-Z0-9]+)$/', $adapter)
                 ) {
-                    include_once str_replace('_', DIRECTORY_SEPARATOR, $adapter) . '.php';
+                    $adapterArr = explode("_",$adapter);
+                   
+                    include_once dirname(__FILE__)."/".$adapterArr[1]."/".$adapterArr[2]."/".$adapterArr[3].".php";
+                   // include_once str_replace('_', DIRECTORY_SEPARATOR, $adapter) . '.php';
                 }
                 if (!class_exists($adapter, false)) {
                     throw new HTTP_Request2_LogicException(

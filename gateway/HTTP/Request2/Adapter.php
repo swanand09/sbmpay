@@ -44,7 +44,7 @@
 /**
  * Class representing a HTTP response
  */
-require_once 'HTTP/Request2/Response.php';
+require_once dirname(__FILE__).'/Response.php';
 
 /**
  * Base class for HTTP_Request2 adapters
